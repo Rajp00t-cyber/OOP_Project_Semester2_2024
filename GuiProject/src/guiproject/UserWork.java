@@ -1,10 +1,4 @@
 /*
-
-
-
-                              This page appears after successfull UserLogin
-
-
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -33,50 +27,54 @@ public class UserWork extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        UserTasksLabel = new javax.swing.JLabel();
-        UserTask1MoviesRelatedWork = new javax.swing.JButton();
-        UserTask2Tickets = new javax.swing.JButton();
-        UserTask3SeatsRelatedWork = new javax.swing.JButton();
-        UserLogoutBtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        UserTasksLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        UserTasksLabel.setForeground(new java.awt.Color(255, 255, 255));
-        UserTasksLabel.setText("User's Dashboard");
-        UserTasksLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
-        jPanel1.add(UserTasksLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("User's Dashboard");
+        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
-        UserTask1MoviesRelatedWork.setBackground(new java.awt.Color(0, 255, 102));
-        UserTask1MoviesRelatedWork.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UserTask1MoviesRelatedWork.setText("Movies");
-        jPanel1.add(UserTask1MoviesRelatedWork, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 120, -1));
-
-        UserTask2Tickets.setBackground(new java.awt.Color(0, 255, 102));
-        UserTask2Tickets.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UserTask2Tickets.setText("Tickets");
-        jPanel1.add(UserTask2Tickets, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, -1));
-
-        UserTask3SeatsRelatedWork.setBackground(new java.awt.Color(0, 255, 102));
-        UserTask3SeatsRelatedWork.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UserTask3SeatsRelatedWork.setText("Seats");
-        jPanel1.add(UserTask3SeatsRelatedWork, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 120, -1));
-
-        UserLogoutBtn.setBackground(new java.awt.Color(255, 51, 51));
-        UserLogoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UserLogoutBtn.setText("Logout");
-        UserLogoutBtn.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(0, 255, 102));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Movies");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserLogoutBtnActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(UserLogoutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 130, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\59510\\Downloads\\required4.jpg")); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 370));
+        jButton2.setBackground(new java.awt.Color(0, 255, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setText("Tickets");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 130, -1));
+
+        jButton5.setBackground(new java.awt.Color(255, 51, 51));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setText("Logout");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 90, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\59510\\Downloads\\required4.jpg")); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,58 +84,72 @@ public class UserWork extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UserLogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserLogoutBtnActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_UserLogoutBtnActionPerformed
+        LoginPageType1 pageType = new LoginPageType1();
+        pageType.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        uTickets tickets= new uTickets();
+        tickets.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        uMovies movies = new uMovies();
+        movies.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UserWork().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(UserWork.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new UserWork().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton UserLogoutBtn;
-    private javax.swing.JButton UserTask1MoviesRelatedWork;
-    private javax.swing.JButton UserTask2Tickets;
-    private javax.swing.JButton UserTask3SeatsRelatedWork;
-    private javax.swing.JLabel UserTasksLabel;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
