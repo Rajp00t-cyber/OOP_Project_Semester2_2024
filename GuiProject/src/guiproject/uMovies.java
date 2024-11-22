@@ -4,19 +4,65 @@
  */
 package guiproject;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Set;
+
+
 /**
  *
  * @author 59510
  */
 public class uMovies extends javax.swing.JFrame {
-
+    
+    Properties properties = new Properties();
     /**
      * Creates new form uMovies
      */
     public uMovies() {
         initComponents();
+        this.setupMovieList();
+        
     }
 
+    private ArrayList<String> getMovies() {
+       
+        ArrayList<String> movieNames = new ArrayList<String>();
+        // Path to the properties file
+       String filePath = "src/guiproject/movies.properties";
+       try (FileInputStream fis = new FileInputStream(filePath)) {
+            // Load the properties file
+            properties.load(fis);
+            
+            for (String key : properties.stringPropertyNames()) {
+                movieNames.add(key);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading properties file: " + e.getMessage());
+        }
+        
+       return movieNames;
+    }
+    
+    private void setupMovieList() {
+        String[] movieNames = getMovies().toArray(new String[0]);
+        
+        jList1.setListData(movieNames);
+        
+        // Add selection listener to the JList
+        jList1.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { // Avoid multiple triggers
+                String selectedItem = jList1.getSelectedValue();
+                jTextField1.setText(selectedItem);
+                
+//                String[] movieDetails = properties.getProperty(selectedItem).split(",");
+//                jTextArea2.setText("Show Time: " + movieDetails[3] + "\n" + "Release Date: " + movieDetails[1] + "\n" + "Availability Date: " + movieDetails[2] + "\n" + "Show Time: " + movieDetails[0]);
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,8 +74,6 @@ public class uMovies extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -38,6 +82,9 @@ public class uMovies extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,15 +95,6 @@ public class uMovies extends javax.swing.JFrame {
         jLabel1.setText("Movies Available :");
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
-
-        jTextArea1.setBackground(new java.awt.Color(204, 0, 0));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Movie 1\nMovie 2\nMovie 3\nMovie 4\nMovie 5\nMovie 6 \nMovie 7 \nMovie 8 \nMovie 9\nMovie 10\nMovie 11\nMovie 12\nMovies 13\nMovie 14\nMovie 15");
-        jTextArea1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 230));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 190, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -69,6 +107,11 @@ public class uMovies extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Ok");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 70, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -80,6 +123,11 @@ public class uMovies extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(51, 51, 51));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 20));
 
         jTextArea2.setColumns(20);
@@ -87,10 +135,18 @@ public class uMovies extends javax.swing.JFrame {
         jTextArea2.setText("Show Time : \nRelease Date :\nTicket Price :\nLast Availability Date :");
         jScrollPane3.setViewportView(jTextArea2);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 230, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\59510\\Downloads\\required3.jpg")); // NOI18N
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 230, -1));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 360));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList1);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 220));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,6 +161,23 @@ public class uMovies extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        UserWork uWork= new UserWork();
+        uWork.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        String movieName = jTextField1.getText();
+        
+        String[] movieDetails = properties.getProperty(movieName).split(",");         
+        
+        jTextArea2.setText("Show Time: " + movieDetails[3] + "\n" + "Release Date: " + movieDetails[1] + "\n" + "Availability Date: " + movieDetails[2] + "\n" + "Show Time: " + movieDetails[0]);
+
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,10 +221,11 @@ public class uMovies extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

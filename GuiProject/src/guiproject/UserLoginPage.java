@@ -112,6 +112,13 @@ public class UserLoginPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String username = jTextField1.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+        
+        if (username.equals("hafsa") && password.equals("hafsa")){
+            UserWork userwork = new UserWork();
+            userwork.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

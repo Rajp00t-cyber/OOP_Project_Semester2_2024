@@ -16,6 +16,7 @@ public class GuiProject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new LoginPageType1().setVisible(true);
     }
     
 }

@@ -3,20 +3,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package guiproject;
-
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
 /**
  *
  * @author 59510
  */
 public class uTickets extends javax.swing.JFrame {
-
+    
+    private ArrayList<String> movieNames;
     /**
      * Creates new form uTickets
      */
     public uTickets() {
         initComponents();
+        this.loadMovies();
     }
 
+    private void loadMovies() {
+        Properties properties = new Properties();
+
+        // Path to the properties file
+        String filePath = "src/guiproject/movies.properties";
+
+        // Create an ArrayList to store movie names
+        movieNames = new ArrayList<>();
+
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            // Load the properties file
+            properties.load(fis);
+
+            // Get all keys (movie names) and add them to the ArrayList
+            Set<String> keys = properties.stringPropertyNames();
+            movieNames.addAll(keys);
+
+            // Print the ArrayList
+            System.out.println("Movie Names: " + movieNames);
+        } catch (IOException e) {
+            System.out.println("Error reading the properties file: " + e.getMessage());
+        }
+        
+        String[] stringArray = new String[movieNames.size()];
+
+        // Read elements from ArrayList and store them in the array
+        for (int i = 0; i < movieNames.size(); i++) {
+            stringArray[i] = movieNames.get(i);
+            System.out.println("Movie Names Array: " + stringArray[i]);
+        }
+ 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(stringArray));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,6 +64,8 @@ public class uTickets extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -74,16 +114,21 @@ public class uTickets extends javax.swing.JFrame {
         jLabel3.setText("Show Time :");
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 130, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Release Date :");
+        jLabel4.setText("Show Date :");
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 130, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Movie 1", "Movie 2", "Movie 3", "Movie 4", "Movie 5", "Movie 6", "Movie 7", "Movie 8", "Movie 9", "Movie 10", "Movie 11", "Movie 12", "Movie 13", "Movie 14", "Movie 15" }));
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 130, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -92,12 +137,14 @@ public class uTickets extends javax.swing.JFrame {
         jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("Cash");
         jRadioButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, -1, -1));
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("Card");
@@ -108,11 +155,21 @@ public class uTickets extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 20));
 
         jButton2.setBackground(new java.awt.Color(0, 255, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Generate Ticket");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
         jPanel1.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(356, 300, 180, 10));
 
@@ -126,28 +183,170 @@ public class uTickets extends javax.swing.JFrame {
         jLabel7.setText("Seat Number");
         jLabel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 120, -1));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\59510\\Downloads\\required3.jpg")); // NOI18N
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 120, -1));
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+       
+    
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     UserWork uWork= new UserWork();
+        uWork.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private static final String PROPERTIES_FILE = "src/guiproject/bookings.properties";
+
+    // Load properties from file
+    private static Properties loadBookings() {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(PROPERTIES_FILE)) {
+            properties.load(fis);
+        } catch (FileNotFoundException e) {
+            System.out.println("Properties file not found. A new one will be created.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
+    // Save properties to file
+    private static void saveBookings(Properties properties) {
+        try (FileOutputStream fos = new FileOutputStream(PROPERTIES_FILE)) {
+            properties.store(fos, "Movie Booking Records");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void showTicketDetails(String customerName, String movieName, String showTime, 
+                                         String releaseDate, String seatNumber) {
+        // Format the ticket details
+        String ticketInfo = "Ticket Details:\n"
+                + "---------------------------\n"
+                + "Customer Name: " + customerName + "\n"
+                + "Movie Name: " + movieName + "\n"
+                + "Show Time: " + showTime + "\n"
+                + "Show Date: " + releaseDate + "\n"
+                + "Seat Number: " + seatNumber + "\n";
+
+        // Create a JTextArea to display the details
+        JTextArea textArea = new JTextArea(10, 30);
+        textArea.setText(ticketInfo);
+        textArea.setEditable(false);
+
+        // Add the JTextArea to a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        // Display the dialog
+        int option = JOptionPane.showConfirmDialog(
+                null,
+                scrollPane,
+                "Booking Confirmation",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // If the user clicks OK, prompt to save as a file
+        if (option == JOptionPane.OK_OPTION) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save Ticket Details");
+            int userSelection = fileChooser.showSaveDialog(null);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                try (FileWriter writer = new FileWriter(fileToSave)) {
+                    writer.write(ticketInfo);
+                    JOptionPane.showMessageDialog(null, "Ticket details saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving ticket details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    // Check and book ticket
+    public static void bookTicket(String customerName, String movieName, String showTime, String releaseDate, String seatNumber, String paymentMethod) {
+        // Load current bookings
+        Properties bookings = loadBookings();
+
+        // Generate a unique key for the booking
+        String bookingKey = movieName + "|" + showTime + "|" + releaseDate + "|" + seatNumber;
+
+        // Check if the seat is already booked
+        if (bookings.containsKey(bookingKey)) {
+            // Show an error dialog
+            JOptionPane.showMessageDialog(null, "Error: Seat already booked for this show!", "Booking Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Book the ticket by adding it to the properties file
+            bookings.setProperty(bookingKey, customerName);
+            saveBookings(bookings);
+            showTicketDetails(customerName, movieName, showTime, releaseDate, seatNumber);
+
+            // Optionally print booking details for debugging
+            System.out.println("Booking Details:");
+            System.out.println("Customer Name: " + customerName);
+            System.out.println("Movie Name: " + movieName);
+            System.out.println("Show Time: " + showTime);
+            System.out.println("Release Date: " + releaseDate);
+            System.out.println("Seat Number: " + seatNumber);
+            System.out.println("Payment Method: " + paymentMethod);
+        }
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String customerName = jTextField1.getText();
+        String movieName = jComboBox1.getSelectedItem().toString();
+        String showTime = jTextField3.getText();
+        String releaseDate =jTextField4.getText();
+        String seatNumber =jTextField2.getText();
+        String paymentMethod = buttonGroup1.getSelection().toString();
+                
+        bookTicket(customerName,movieName,showTime,releaseDate, seatNumber, paymentMethod);
+    
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+         
+    
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+        
+        
+
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,6 +384,8 @@ public class uTickets extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;

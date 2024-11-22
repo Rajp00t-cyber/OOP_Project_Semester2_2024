@@ -4,17 +4,53 @@
  */
 package guiproject;
 
+import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 /**
  *
  * @author 59510
  */
-public class aManageMovies extends javax.swing.JFrame {
-
+    public class aManageMovies extends javax.swing.JFrame {
+    
+    private ArrayList<String> movies = new ArrayList<>();
+    List<String> movieNames;
     /**
      * Creates new form aManageMovies
      */
     public aManageMovies() {
+       
+        Properties properties = new Properties();
+
+        // Path to the properties file
+        String filePath = "src/guiproject/movies.properties";
+
+        // Create an ArrayList to store movie names
+        movieNames = new ArrayList<>();
+
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            // Load the properties file
+            properties.load(fis);
+
+            // Get all keys (movie names) and add them to the ArrayList
+            Set<String> keys = properties.stringPropertyNames();
+            movieNames.addAll(keys);
+
+            // Print the ArrayList
+            System.out.println("Movie Names: " + movieNames);
+        } catch (IOException e) {
+            System.out.println("Error reading the properties file: " + e.getMessage());
+        }
+       
         initComponents();
+        String movieNamesString = String.join("\n", movieNames);
+
+        jTextArea1.setText(movieNamesString);
     }
 
     /**
@@ -39,7 +75,6 @@ public class aManageMovies extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +107,11 @@ public class aManageMovies extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Ok");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 50, 20));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +125,11 @@ public class aManageMovies extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Ok");
         jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 50, 20));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,17 +148,18 @@ public class aManageMovies extends javax.swing.JFrame {
         jTextArea1.setText("Movie 1\nMovie 2\nMovie 3\nMovie 4\nMovie 5\nMovie 6 \nMovie 7 \nMovie 8 \nMovie 9\nMovie 10\nMovie 11\nMovie 12\nMovies 13\nMovie 14\nMovie 15");
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 190, 200));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 190, 200));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 20));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\59510\\Downloads\\required3.jpg")); // NOI18N
-        jLabel6.setText("jLabel6");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,40 +183,120 @@ public class aManageMovies extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       String movieName = jTextField2.getText();
+       Properties properties = new Properties();
+
+        // Path to the properties file
+       String filePath = "src/guiproject/movies.properties";
+       try (FileInputStream fis = new FileInputStream(filePath)) {
+            // Load the properties file
+            properties.load(fis);
+        } catch (IOException e) {
+            System.out.println("Error loading properties file: " + e.getMessage());
+        }
+       
+       if (!properties.containsKey(movieName)) {
+            // Add the new movie name with a default value
+            properties.setProperty(movieName, "");
+
+            try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                // Save the updated properties back to the file
+                properties.store(fos, "Updated movies list");
+                //System.out.println("Movie added: " + movieName);
+            } catch (IOException e) {
+                System.out.println("Error saving properties file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Movie already exists: " + movieName);
+        }
+
+       movies.add(movieName);
+       
+       String moviesString = String.join("\n", movies);
+       String existingMovieList = jTextArea1.getText();
+       jTextArea1.setText(existingMovieList+ "\n" +moviesString);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        AdminWork aWork= new AdminWork();
+        aWork.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String movieName = jTextField1.getText();
+        Properties properties = new Properties();
+
+        // Path to the properties file
+       String filePath = "src/guiproject/movies.properties";
+       try (FileInputStream fis = new FileInputStream(filePath)) {
+            // Load the properties file
+            properties.load(fis);
+        } catch (IOException e) {
+            System.out.println("Error loading properties file: " + e.getMessage());
+        }
+       
+       if (properties.containsKey(movieName)) {
+            // Add the new movie name with a default value
+            properties.remove(movieName);
+
+
+            try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                // Save the updated properties back to the file
+                properties.store(fos, "Updated movies list");
+                //System.out.println("Movie added: " + movieName);
+            } catch (IOException e) {
+                System.out.println("Error saving properties file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Movie already exists: " + movieName);
+        }
+
+        movies.remove(movieName);
+        String existingMovieList = jTextArea1.getText();
+        String updatedMovieList = existingMovieList.replaceAll("(?m)^" + movieName + "$", "");
+
+        String moviesString = String.join("\n", movies);
+       jTextArea1.setText(updatedMovieList);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new aManageMovies().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(aManageMovies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new aManageMovies().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -181,7 +307,6 @@ public class aManageMovies extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
